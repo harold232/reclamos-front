@@ -37,15 +37,15 @@ import {
 } from "lucide-react";
 
 const claimFormSchema = z.object({
-  fecha: z.string().min(1, "La fecha es obligatoria."),
-  medioPresentacion: z.string().min(1, "Medio de presentación es obligatorio."),
-  medioRecepcion: z.string().min(1, "Medio de recepción es obligatorio."),
-  servicio: z.string().min(1, "Servicio es obligatorio."),
-  competencia: z.string().min(1, "Competencia es obligatoria."),
-  descripcion: z
-    .string()
-    .min(1, "Descripción es obligatoria.")
-    .max(500, "Descripción no debe exceder 500 caracteres."),
+  FE_PRESEN_RECLA: z.string().min(1, "La fecha es obligatoria."),
+  DE_TIPO_INSTITUCION: z.string().min(1, "Tipo de institución es obligatorio."),
+  DE_MEDIO_PRESENTACION: z.string().min(1, "Medio de presentación es obligatorio."),
+  DE_MEDIO_RECEPCION: z.string().min(1, "Medio de recepción es obligatorio."),
+  DE_SERVICIO: z.string().min(1, "Servicio es obligatorio."),
+  DESCRIPCION: z
+      .string()
+      .min(1, "Descripción es obligatoria.")
+      .max(500, "Descripción no debe exceder 500 caracteres."),
 });
 
 type ClaimFormValues = z.infer<typeof claimFormSchema>;
@@ -65,12 +65,12 @@ export default function ClaimForm() {
   const form = useForm<ClaimFormValues>({
     resolver: zodResolver(claimFormSchema),
     defaultValues: {
-      fecha: "", 
-      medioPresentacion: "",
-      medioRecepcion: "",
-      servicio: "",
-      competencia: "",
-      descripcion: "",
+      FE_PRESEN_RECLA: "",
+      DE_TIPO_INSTITUCION: "",
+      DE_MEDIO_PRESENTACION: "",
+      DE_MEDIO_RECEPCION: "",
+      DE_SERVICIO: "",
+      DESCRIPCION: "",
     },
   });
 
@@ -82,7 +82,7 @@ export default function ClaimForm() {
     const formattedDateForSchema = today.toISOString().split('T')[0]; 
     
     setCurrentDateDisplay(formattedDateForDisplay);
-    form.setValue('fecha', formattedDateForSchema, { shouldValidate: true });
+    form.setValue('FE_PRESEN_RECLA', formattedDateForSchema, { shouldValidate: true });
   };
 
   useEffect(() => {
@@ -91,17 +91,20 @@ export default function ClaimForm() {
 
 
   async function onSubmit(data: ClaimFormValues) {
+    console.log("Formulario enviado con:", data);
     setIsSubmitting(true);
+
     try {
       const response = await fetch("/api/predict", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(data)
       });
 
       const result = await response.json();
+      console.log("Respuesta del backend:", result);
 
       if (response.ok) {
         toast({
@@ -133,15 +136,15 @@ export default function ClaimForm() {
 
   const handleRegisterNewClaim = () => {
     setSubmissionResult(null);
-    form.reset({ // Restablece los campos a sus valores defaultValues o vacíos
-      fecha: "", // Se actualizará con resetDateFields
-      medioPresentacion: "",
-      medioRecepcion: "",
-      servicio: "",
-      competencia: "",
-      descripcion: "",
+    form.reset({
+      FE_PRESEN_RECLA: "",
+      DE_TIPO_INSTITUCION: "",
+      DE_MEDIO_PRESENTACION: "",
+      DE_MEDIO_RECEPCION: "",
+      DE_SERVICIO: "",
+      DESCRIPCION: "",
     });
-    resetDateFields(); // Asegura que la fecha se actualice correctamente
+    resetDateFields();
   };
 
   if (submissionResult) {
@@ -158,7 +161,7 @@ export default function ClaimForm() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <FormField
           control={form.control}
-          name="fecha"
+          name="FE_PRESEN_RECLA"
           render={({ field }) => (
             <FormItem>
               <FormLabel className="flex items-center font-semibold">
@@ -178,8 +181,36 @@ export default function ClaimForm() {
         />
 
         <FormField
+            control={form.control}
+            name="DE_TIPO_INSTITUCION"
+            render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="flex items-center font-semibold">
+                    <Briefcase className="mr-2 h-4 w-4 text-primary" />
+                    Tipo de Institución
+                  </FormLabel>
+                  <Select onValueChange={field.onChange} value={field.value} defaultValue="">
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Seleccione un tipo de institución" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {genericOptions.map((option) => (
+                          <SelectItem key={option.value} value={option.value}>
+                            {option.label}
+                          </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+            )}
+        />
+
+        <FormField
           control={form.control}
-          name="medioPresentacion"
+          name="DE_MEDIO_PRESENTACION"
           render={({ field }) => (
             <FormItem>
               <FormLabel className="flex items-center font-semibold">
@@ -207,7 +238,7 @@ export default function ClaimForm() {
 
         <FormField
           control={form.control}
-          name="medioRecepcion"
+          name="DE_MEDIO_RECEPCION"
           render={({ field }) => (
             <FormItem>
               <FormLabel className="flex items-center font-semibold">
@@ -235,7 +266,7 @@ export default function ClaimForm() {
 
         <FormField
           control={form.control}
-          name="servicio"
+          name="DE_SERVICIO"
           render={({ field }) => (
             <FormItem>
               <FormLabel className="flex items-center font-semibold">
@@ -263,35 +294,7 @@ export default function ClaimForm() {
 
         <FormField
           control={form.control}
-          name="competencia"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="flex items-center font-semibold">
-                <Scale className="mr-2 h-4 w-4 text-primary" />
-                Competencia
-              </FormLabel>
-              <Select onValueChange={field.onChange} value={field.value} defaultValue="">
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Seleccione una competencia" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {genericOptions.map((option) => (
-                    <SelectItem key={option.value} value={option.value}>
-                      {option.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="descripcion"
+          name="DESCRIPCION"
           render={({ field }) => (
             <FormItem>
               <FormLabel className="flex items-center font-semibold">
