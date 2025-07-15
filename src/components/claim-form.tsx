@@ -50,11 +50,11 @@ const claimFormSchema = z.object({
 
 type ClaimFormValues = z.infer<typeof claimFormSchema>;
 
-const genericOptions = [
-  { value: "opcion_1", label: "Opción 1" },
-  { value: "opcion_2", label: "Opción 2" },
-  { value: "opcion_3", label: "Opción 3" },
-];
+//const genericOptions = [
+ // { value: "opcion_1", label: "Opción 1" },
+//{ value: "opcion_2", label: "Opción 2" },
+  //{ value: "opcion_3", label: "Opción 3" },
+//];
 
 export default function ClaimForm() {
   const { toast } = useToast();
@@ -186,20 +186,18 @@ export default function ClaimForm() {
                 <FileSignature className="mr-2 h-4 w-4 text-primary" />
                 Medio de Presentación
               </FormLabel>
-              <Select onValueChange={field.onChange} value={field.value} defaultValue="">
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Seleccione un medio" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {genericOptions.map((option) => (
-                    <SelectItem key={option.value} value={option.value}>
-                      {option.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+            <Select onValueChange={field.onChange} value={field.value} defaultValue="">
+  <FormControl>
+    <SelectTrigger>
+      <SelectValue placeholder="Seleccione un medio" />
+    </SelectTrigger>
+  </FormControl>
+  <SelectContent>
+    <SelectItem value="fisico">Físico</SelectItem>
+    <SelectItem value="virtual">Virtual</SelectItem>
+    <SelectItem value="telefonico">Telefónico</SelectItem>
+  </SelectContent>
+</Select>
               <FormMessage />
             </FormItem>
           )}
@@ -214,20 +212,23 @@ export default function ClaimForm() {
                 <Mailbox className="mr-2 h-4 w-4 text-primary" />
                 Medio de Recepción
               </FormLabel>
-              <Select onValueChange={field.onChange} value={field.value} defaultValue="">
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Seleccione un medio" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {genericOptions.map((option) => (
-                    <SelectItem key={option.value} value={option.value}>
-                      {option.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+             <Select onValueChange={field.onChange} value={field.value} defaultValue="">
+  <FormControl>
+    <SelectTrigger>
+      <SelectValue placeholder="Seleccione un medio" />
+    </SelectTrigger>
+  </FormControl>
+  <SelectContent>
+    <SelectItem value="documento_escrito">Documento Escrito</SelectItem>
+    <SelectItem value="libro_reclamaciones_fisico">Libro de Reclamaciones Físico</SelectItem>
+    <SelectItem value="libro_reclamaciones_virtual">ReLibro de Raclamaciones Virtual</SelectItem>
+    <SelectItem value="llamada_telefonica">Llaamada telefónica</SelectItem>
+    <SelectItem value="reclamo_coparticipado">Reclamo coparticipado con otra administrada</SelectItem>
+    <SelectItem value="reclamo_presencial">DoReclamo Presencial</SelectItem>
+    <SelectItem value="reclamo_trasladado">DReclamo trasladado de otra administrada</SelectItem>
+  </SelectContent>
+</Select>
+
               <FormMessage />
             </FormItem>
           )}
@@ -242,20 +243,31 @@ export default function ClaimForm() {
                 <Briefcase className="mr-2 h-4 w-4 text-primary" />
                 Servicio
               </FormLabel>
-              <Select onValueChange={field.onChange} value={field.value} defaultValue="">
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Seleccione un servicio" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {genericOptions.map((option) => (
-                    <SelectItem key={option.value} value={option.value}>
-                      {option.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+            <Select onValueChange={field.onChange} value={field.value} defaultValue="">
+  <FormControl>
+    <SelectTrigger>
+      <SelectValue placeholder="Seleccione un servicio" />
+    </SelectTrigger>
+  </FormControl>
+  <SelectContent>
+    <SelectItem value="farmacia">Farmacia</SelectItem>
+    <SelectItem value="areas_administrativas">Oficinas o Áreas Administrativas de IAFAS o IPRESS o UGIPRES</SelectItem>
+    <SelectItem value="servicios_medicos">Servicios Médicos de Apoyo</SelectItem>
+    <SelectItem value="consulta_externa">Consulta Externa</SelectItem>
+    <SelectItem value="hospitalizacion">Hospitalización</SelectItem>
+    <SelectItem value="atencion_emergencia">Atención a domicilio, urgencia o emergencia</SelectItem>
+    <SelectItem value="atencion_domicilio">Atención a domicilio, consulta ambulatoria</SelectItem>
+    <SelectItem value="emergencia">Emergencia</SelectItem>
+    <SelectItem value="centro_quirurgico">Centro Quirúrgico</SelectItem>
+    <SelectItem value="uci">UCI o UCIN</SelectItem>
+    <SelectItem value="infraestructura">Infraestructura</SelectItem>
+    <SelectItem value="referencia">Referencia y Contrareferencia</SelectItem>
+    <SelectItem value="centro_obstetrico">Centro Obstétrico</SelectItem>
+    <SelectItem value="oficinas">Emergencia</SelectItem>
+    
+  </SelectContent>
+</Select>
+
               <FormMessage />
             </FormItem>
           )}
@@ -271,18 +283,17 @@ export default function ClaimForm() {
                 Competencia
               </FormLabel>
               <Select onValueChange={field.onChange} value={field.value} defaultValue="">
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Seleccione una competencia" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {genericOptions.map((option) => (
-                    <SelectItem key={option.value} value={option.value}>
-                      {option.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
+             <FormControl>
+  <SelectTrigger>
+    <SelectValue placeholder="Seleccione una competencia" />
+  </SelectTrigger>
+</FormControl>
+<SelectContent>
+  <SelectItem value="si">Sí</SelectItem>
+  <SelectItem value="no">No</SelectItem>
+  <SelectItem value="compartida">Compartida</SelectItem>
+</SelectContent>
+
               </Select>
               <FormMessage />
             </FormItem>
