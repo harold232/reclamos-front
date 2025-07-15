@@ -92,8 +92,8 @@ export default function ClaimForm() {
 
   async function onSubmit(data: ClaimFormValues) {
     setIsSubmitting(true);
-    try {
-      const response = await fetch("/api/predict", {
+    try {   //    cambiando el endpoint
+      const response = await fetch("http://myclaimclassifieraci-18981.eastus.azurecontainer.io:8080/predict", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -221,11 +221,11 @@ export default function ClaimForm() {
   <SelectContent>
     <SelectItem value="documento_escrito">Documento Escrito</SelectItem>
     <SelectItem value="libro_reclamaciones_fisico">Libro de Reclamaciones Físico</SelectItem>
-    <SelectItem value="libro_reclamaciones_virtual">ReLibro de Raclamaciones Virtual</SelectItem>
-    <SelectItem value="llamada_telefonica">Llaamada telefónica</SelectItem>
+    <SelectItem value="libro_reclamaciones_virtual">Libro de Reclamaciones Virtual</SelectItem>
+    <SelectItem value="llamada_telefonica">Llamada telefónica</SelectItem>
     <SelectItem value="reclamo_coparticipado">Reclamo coparticipado con otra administrada</SelectItem>
-    <SelectItem value="reclamo_presencial">DoReclamo Presencial</SelectItem>
-    <SelectItem value="reclamo_trasladado">DReclamo trasladado de otra administrada</SelectItem>
+    <SelectItem value="reclamo_presencial">Reclamo Presencial</SelectItem>
+    <SelectItem value="reclamo_trasladado">Reclamo trasladado de otra administrada</SelectItem>
   </SelectContent>
 </Select>
 
