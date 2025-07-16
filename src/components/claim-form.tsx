@@ -92,36 +92,36 @@ export default function ClaimForm() {
         resetDateFields();
     }, [form]);
 
-const obtenerPrioridad = (servicio: string): string => {
-    const alta = [
-"emergencia",
-"atencion_emergencia","uci",
-    "centro_quirurgico",
-    "hospitalizacion",
-    "centro_obstetrico",
-    ];
-    const media = [
-    "servicios_medicos",
-    "consulta_externa",
-    "referencia",
-    "infraestructura",
-    ];
-    const baja = [
-    "farmacia",
-    "atencion_domicilio",
-    "areas_administrativas",
-    "oficinas",
-    ];
+    const obtenerPrioridad = (servicio: string): string => {
+        const alta = [
+            "emergencia",
+            "atencion_emergencia", "uci",
+            "centro_quirurgico",
+            "hospitalizacion",
+            "centro_obstetrico",
+        ];
+        const media = [
+            "servicios_medicos",
+            "consulta_externa",
+            "referencia",
+            "infraestructura",
+        ];
+        const baja = [
+            "farmacia",
+            "atencion_domicilio",
+            "areas_administrativas",
+            "oficinas",
+        ];
 
-    if (alta.includes(servicio)) return "Alta";
-    if (media.includes(servicio)) return "Media";
-    if (baja.includes(servicio)) return "Baja";
-    return "No definida";
-};
+        if (alta.includes(servicio)) return "Alta";
+        if (media.includes(servicio)) return "Media";
+        if (baja.includes(servicio)) return "Baja";
+        return "No definida";
+    };
 
-  //clasiicacion por descripcion
+    //clasiicacion por descripcion
 
-const obtenerPrioridadPorDescripcion = (descripcion: string): string => {
+    const obtenerPrioridadPorDescripcion = (descripcion: string): string => {
         const desc = descripcion.toLowerCase();
         const altaPalabras = ["muerte", "urgente", "grave", "riesgo", "colapso"];
         const mediaPalabras = ["espera", "demora", "no atienden", "descoordinación"];
