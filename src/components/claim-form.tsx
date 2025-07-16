@@ -103,7 +103,7 @@ export default function ClaimForm() {
             DESCRIPCION: data.descripcion,
         };
         try {
-            const response = await fetch("http://myclaimclassifieraci-10998.eastus.azurecontainer.io:8080/predict", {
+            const response = await fetch("https://myclaimclassifieraci-10998.eastus.azurecontainer.io:8080/predict", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
